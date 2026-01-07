@@ -1,0 +1,161 @@
+ MASTER PROMPT: Flipkart Seller Hub API Automation Software
+
+> You are a senior full-stack SaaS architect and automation engineer.
+>
+> Build a **production-ready Flipkart Seller Hub Automation Software** using **Flipkart Order Management APIs (OMAPI)**.
+>
+> The software must be designed for **Flipkart sellers** to automate order handling, inventory control, invoicing, analytics, and returns — with scalability for future SaaS commercialization.
+
+---
+
+### 🔐 1. AUTHENTICATION & API INTEGRATION
+
+* Integrate Flipkart Seller Hub APIs using **secure token-based authentication**
+* Token refresh & expiry handling
+* Environment-based config (sandbox / production)
+* Central API service layer with retry & error handling
+
+---
+
+### 📦 2. ORDER MANAGEMENT MODULE
+
+* Auto-fetch new orders (cron + webhook-ready)
+* Order status lifecycle:
+
+  * CREATED → PACKED → SHIPPED → DELIVERED
+* Order detail view:
+
+  * Buyer details
+  * SKU, quantity, price
+  * GST, commission, shipping
+* Alerts for:
+
+  * Pending dispatch
+  * SLA breach risk
+
+---
+
+### 🧾 3. AUTO INVOICE & PACKING SLIP
+
+* Auto-generate GST-compliant invoice (PDF)
+* Packing slip with barcode / order ID
+* Custom branding (seller logo, address)
+* Auto-download / print option
+
+---
+
+### 📊 4. INVENTORY & STOCK CONTROL
+
+* Auto stock deduction on order confirmation
+* Low-stock alerts
+* Out-of-stock prevention logic
+* Product-wise stock dashboard
+
+---
+
+### 🔄 5. RETURNS & CANCELLATION TRACKING
+
+* Fetch returns & cancellations via API
+* Reason analysis (RTO, customer rejection, damage)
+* Loss impact report
+* High-risk SKU identification
+
+---
+
+### 📈 6. ANALYTICS & PROFIT DASHBOARD
+
+* Daily / weekly / monthly sales report
+* Product-wise profit calculation:
+
+  * Sale price
+  * Flipkart commission
+  * GST
+  * Shipping
+* RTO percentage & trends
+* Best-selling vs loss-making products
+
+---
+
+### 🧠 7. SELLER INTELLIGENCE (ADVANCED)
+
+* Predict high-RTO products
+* Suggest price optimization
+* Dispatch delay pattern detection
+* Fast-moving SKU identification
+
+---
+
+### 👥 8. USER & ROLE MANAGEMENT
+
+* Seller admin
+* Staff roles (packer, accountant, manager)
+* Role-based access control
+
+---
+
+### 🖥️ 9. DASHBOARD & UI
+
+* Clean, fast, responsive dashboard
+* Tech stack:
+
+  * Backend: Node.js / Python / PHP
+  * Frontend: React / Vue
+  * Database: MySQL / PostgreSQL
+* Charts & tables (sales, profit, returns)
+
+---
+
+### ⚙️ 10. AUTOMATION & CRON JOBS
+
+* Auto order sync (every X minutes)
+* Auto report generation (PDF / CSV)
+* Email / WhatsApp alerts (optional)
+
+---
+
+### 🧩 11. MULTI-ACCOUNT READY (FUTURE)
+
+* Support multiple Flipkart seller accounts
+* Centralized dashboard
+* Token isolation per account
+
+---
+
+### 🔒 12. SECURITY & COMPLIANCE
+
+* Encrypted API tokens
+* Secure file storage
+* Audit logs
+* GDPR-ready structure
+
+---
+
+### 🚀 13. SAAS-READY ARCHITECTURE
+
+* Modular codebase
+* Subscription plans (future)
+* Tenant-based data isolation
+* Scalable cloud deployment
+
+---
+
+### 📄 OUTPUT REQUIRED
+
+* Complete system architecture
+* Database schema
+* API service layer code
+* Sample API calls
+* UI wireframe explanation
+* Deployment guide
+
+---
+
+### 🎯 FINAL GOAL
+
+Create a **Flipkart Seller Automation Platform** that:
+
+* Saves seller time
+* Reduces RTO & cancellations
+* Improves profits
+* Can be converted into a **paid SaaS product**
+
