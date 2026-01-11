@@ -145,20 +145,30 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getDashboardStats() {
-    // Mock implementation for MVP speed, or real count queries
-    const [ordersCount] = await db.select({ count: sql<number>`count(*)` }).from(orders);
-    const [pendingCount] = await db.select({ count: sql<number>`count(*)` }).from(orders).where(eq(orders.status, 'PACKED')); // Assuming PACKED means pending dispatch
-    const [salesSum] = await db.select({ total: sql<number>`sum(${orders.totalAmount})` }).from(orders);
-    const [lowStock] = await db.select({ count: sql<number>`count(*)` }).from(products).where(sql`${products.stock} <= ${products.lowStockThreshold}`);
-    const [returnsC] = await db.select({ count: sql<number>`count(*)` }).from(returns);
+    try {
+      const [ordersCount] = await db.select({ count: sql<number>`count(*)` }).from(orders);
+      const [pendingCount] = await db.select({ count: sql<number>`count(*)` }).from(orders).where(eq(orders.status, 'PACKED'));
+      const [salesSum] = await db.select({ total: sql<string>`sum(${orders.totalAmount})` }).from(orders);
+      const [lowStock] = await db.select({ count: sql<number>`count(*)` }).from(products).where(sql`${products.stock} <= ${products.lowStockThreshold}`);
+      const [returnsC] = await db.select({ count: sql<number>`count(*)` }).from(returns);
 
-    return {
-      totalOrders: Number(ordersCount?.count || 0),
-      pendingDispatch: Number(pendingCount?.count || 0),
-      totalSales: Number(salesSum?.total || 0),
-      lowStockCount: Number(lowStock?.count || 0),
-      returnsCount: Number(returnsC?.count || 0),
-    };
+      return {
+        totalOrders: Number(ordersCount?.count || 0),
+        pendingDispatch: Number(pendingCount?.count || 0),
+        totalSales: parseFloat(salesSum?.total || "0"),
+        lowStockCount: Number(lowStock?.count || 0),
+        returnsCount: Number(returnsC?.count || 0),
+      };
+    } catch (error) {
+      console.error("Dashboard stats error:", error);
+      return {
+        totalOrders: 0,
+        pendingDispatch: 0,
+        totalSales: 0,
+        lowStockCount: 0,
+        returnsCount: 0,
+      };
+    }
   }
 }
 

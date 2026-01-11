@@ -79,19 +79,28 @@ export async function registerRoutes(
   });
 
   app.post(api.orders.sync.path, async (req, res) => {
-    // Mock sync logic
-    // In a real app, this would fetch from Flipkart API
-    await seedDatabase(); // For demo, we just ensure seed data exists
-    res.json({ message: "Sync successful", syncedCount: 0 });
+    try {
+      // Mock sync logic
+      // In a real app, this would fetch from Flipkart API
+      await seedDatabase(); // For demo, we just ensure seed data exists
+      res.json({ message: "Sync successful", syncedCount: 3 });
+    } catch (error) {
+      console.error("Sync error:", error);
+      res.status(500).json({ message: "Sync failed" });
+    }
   });
 
   app.post(api.orders.generateInvoice.path, async (req, res) => {
-    // Mock invoice generation
-    const order = await storage.getOrder(Number(req.params.id));
-    if (!order) return res.status(404).json({ message: "Order not found" });
-    
-    // Return a dummy PDF url
-    res.json({ url: "/invoice_placeholder.pdf" });
+    try {
+      const order = await storage.getOrder(Number(req.params.id));
+      if (!order) return res.status(404).json({ message: "Order not found" });
+      
+      // Return a dummy PDF url
+      res.json({ url: "/invoice_placeholder.pdf" });
+    } catch (error) {
+      console.error("Invoice generation error:", error);
+      res.status(500).json({ message: "Failed to generate invoice" });
+    }
   });
 
   // === RETURNS ===
