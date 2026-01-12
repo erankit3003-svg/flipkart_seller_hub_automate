@@ -115,6 +115,18 @@ export const api = {
         404: errorSchemas.notFound,
       },
     },
+    bulkUpdateStatus: {
+      method: 'POST' as const,
+      path: '/api/orders/bulk-status',
+      input: z.object({
+        ids: z.array(z.number()),
+        status: z.string(),
+      }),
+      responses: {
+        200: z.object({ success: z.boolean(), count: z.number() }),
+        400: errorSchemas.validation,
+      },
+    },
   },
   returns: {
     list: {

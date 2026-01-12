@@ -103,6 +103,19 @@ export async function registerRoutes(
     }
   });
 
+  app.post(api.orders.bulkUpdateStatus.path, async (req, res) => {
+    try {
+      const { ids, status } = api.orders.bulkUpdateStatus.input.parse(req.body);
+      const count = await storage.bulkUpdateOrdersStatus(ids, status);
+      res.json({ success: true, count });
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({ message: err.errors[0].message });
+      }
+      res.status(500).json({ message: "Bulk update failed" });
+    }
+  });
+
   // === RETURNS ===
   app.get(api.returns.list.path, async (req, res) => {
     const returns = await storage.getReturns();

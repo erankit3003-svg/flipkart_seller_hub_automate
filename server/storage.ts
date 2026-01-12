@@ -21,6 +21,7 @@ export interface IStorage {
   getOrder(id: number): Promise<OrderWithItems | undefined>;
   createOrder(order: InsertOrder, items: { sku: string, quantity: number, price: string }[]): Promise<Order>;
   updateOrder(id: number, order: Partial<InsertOrder>): Promise<Order>;
+  bulkUpdateOrdersStatus(ids: number[], status: string): Promise<number>;
   
   // Returns
   getReturns(): Promise<Return[]>;
@@ -121,6 +122,14 @@ export class DatabaseStorage implements IStorage {
   async updateOrder(id: number, updates: Partial<InsertOrder>): Promise<Order> {
      const [updated] = await db.update(orders).set(updates).where(eq(orders.id, id)).returning();
      return updated;
+  }
+
+  async bulkUpdateOrdersStatus(ids: number[], status: string): Promise<number> {
+    const result = await db.update(orders)
+      .set({ status, updatedAt: new Date() })
+      .where(sql`${orders.id} IN (${sql.join(ids, sql`, `)})`)
+      .returning();
+    return result.length;
   }
 
   async getReturns(): Promise<Return[]> {
